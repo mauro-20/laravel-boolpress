@@ -8,6 +8,12 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
                   
                 <div class="card-body">
+                  @if ($message = Session::get('error'))
+                  <div class="alert alert-danger alert-block">
+                      <button type="button" class="close" data-dismiss="alert">×</button>    
+                      <strong>{{ $message }}</strong>
+                  </div>
+                  @endif
                   <table class="table">
                     <thead>
                       <tr>
@@ -25,6 +31,11 @@
                         <td>{{$post['slug']}}</td>
                         <td>
                           <a href="{{route('admin.posts.show', $post['id'])}}"><button type="button" class="btn btn-primary">Show</button></a>
+                          <form action="{{route('admin.posts.destroy', $post['id'])}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                          </form>
                         </td>
                       </tr>  
                       @endforeach
