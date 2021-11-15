@@ -13,11 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Rotte pubbliche
+// Public routes
 Route::get('/', 'PageController@index');
+Route::get('/blog', 'PostController@index')->name('blog.index');
+Route::get('/blog/{slug}', 'PostController@show')->name('post.show');
 
+// Authentication routes
 Auth::routes();
 
+// Admin area routes
 Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->group(function () {
         Route::get('/home', 'HomeController@index')->name('home');
         Route::resource('posts', 'PostController');
