@@ -14,6 +14,12 @@
                       <strong>{{ $message }}</strong>
                   </div>
                   @endif
+                  @if ($notification = Session::get('success'))
+                  <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>	
+                          <strong>{{ $notification }}</strong>
+                  </div>
+                  @endif
                   <table class="table">
                     <thead>
                       <tr>
@@ -31,6 +37,7 @@
                         <td>{{$post['slug']}}</td>
                         <td>
                           <a href="{{route('admin.posts.show', $post['id'])}}"><button type="button" class="btn btn-primary">Show</button></a>
+                          <a href="{{route('admin.posts.edit', $post['id'])}}"><button type="button" class="btn btn-warning">Edit</button></a>
                           <form action="{{route('admin.posts.destroy', $post['id'])}}" method="POST">
                             @csrf
                             @method('DELETE')
