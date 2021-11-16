@@ -9,6 +9,11 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    protected $validationRules = [
+        'title' => 'required|string|max:100',
+        'content' => 'required|string'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -38,13 +43,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:100',
-            'content' => 'required|string'
-        ]);
+        $request->validate($this->validationRules);
 
         $newPost = new Post();
         $newPost->fill($request->all());
+        //TO DO creare un slug unique
         $newPost->slug = Str::slug($newPost->title, '-');
 
         $newPost->save();
@@ -81,9 +84,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        
+        $request->validate($this->validationRules);
+
+        $post->fill($request->all());
+        //TO DO creare un slug unique
+        $post->slug = Str::slug($post->title, '-');
+
+        $post->save();
+
+        return redirect()->route("admin.posts.index")->with('success', "Post edited successfully!");
     }
 
     /**
