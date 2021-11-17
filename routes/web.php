@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Public routes
-Route::get('/', 'PageController@index');
+Route::get('/', 'PageController@index')->name('homepage');
 Route::get('/blog', 'PostController@index')->name('blog.index');
 Route::get('/blog/{slug}', 'PostController@show')->name('post.show');
 
