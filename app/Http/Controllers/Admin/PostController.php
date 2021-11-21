@@ -103,8 +103,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Request $request)
     {
+        $post = Post::find($request->id);
+        
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('error', "Post {$post->id} has been deleted!");
