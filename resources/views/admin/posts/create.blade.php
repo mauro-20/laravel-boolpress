@@ -6,7 +6,6 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Write new post') }}</div>
-                  
                 <div class="card-body">
                   @if ($message = Session::get('error'))
                   <div class="alert alert-danger alert-block">
@@ -32,6 +31,16 @@
                        @error('content')
                         <div class="alert alert-danger">{{ $message }}</div>
                       @enderror
+                    </div>
+
+                    <div class="form-group">
+                      <label for="category_id">Category</label>
+                      <select class="form-control" name="category_id" id="category_id">
+                        <option value="" selected disabled>--Select a category--</option>
+                        @foreach ($categories as $category)
+                        <option value="{{$category['id']}}">{{ $category['name'] }}</option>
+                        @endforeach
+                      </select>
                     </div>
                   
                     <button type="submit" class="btn btn-primary">Save</button>

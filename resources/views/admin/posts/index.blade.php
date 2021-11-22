@@ -26,6 +26,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Slug</th>
+                        <th scope="col">Categoty</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -35,6 +36,7 @@
                         <th scope="row">{{$post['id']}}</th>
                         <td>{{$post['title']}}</td>
                         <td>{{$post['slug']}}</td>
+                        <td>{{$post['category']['name'] ?? ""}}</td>
                         <td>
                           <a href="{{route('admin.posts.show', $post['id'])}}"><button type="button" class="btn btn-primary">Show</button></a>
                           <a href="{{route('admin.posts.edit', $post['id'])}}"><button type="button" class="btn btn-warning">Edit</button></a>
