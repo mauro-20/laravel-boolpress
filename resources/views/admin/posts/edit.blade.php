@@ -21,7 +21,7 @@
                     
                     <div class="form-group" >
                       <label for="title">Title</label>
-                      <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Insert Title" value="{{$post['title']}}">
+                      <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Insert Title" value="{{old('title') ?? $post['title']}}">
                       @error('title')
                         <div class="alert alert-danger">{{ $message }}</div>
                       @enderror
@@ -29,8 +29,21 @@
 
                     <div class="form-group">
                       <label for="content">Content</label>
-                      <textarea class="form-control @error('content') is-invalid @enderror" id="content" rows="3" name="content" placeholder="Insert Post Content...">{{$post['content']}}</textarea>
+                      <textarea class="form-control @error('content') is-invalid @enderror" id="content" rows="3" name="content" placeholder="Insert Post Content...">{{old('content') ?? $post['content']}}</textarea>
                        @error('content')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="category_id">Category</label>
+                      <select class="form-control" name="category_id" id="category_id">
+                        <option value="" selected disabled>--Select a category--</option>
+                        @foreach ($categories as $category)
+                        <option {{old('category_id')==$category['id'] || $post['category_id']==$category['id'] ? 'selected' : null}} value="{{$category['id']}}">{{ $category['name'] }}</option>
+                        @endforeach
+                      </select>
+                      @error('category_id')
                         <div class="alert alert-danger">{{ $message }}</div>
                       @enderror
                     </div>
