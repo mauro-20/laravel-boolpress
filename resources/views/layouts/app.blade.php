@@ -34,10 +34,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.posts.index') }}">Post List</a>
+                            <a class="nav-link" href="{{ route('admin.posts.index') }}">Posts List</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.posts.create') }}">New Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.categories.index') }}">Categories List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.categories.create') }}">New Category</a>
                         </li>
                     </ul>
 

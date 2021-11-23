@@ -37270,6 +37270,15 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var deleteButtons = document.querySelectorAll(".btn-delete");
+var inputDeleteID = document.getElementById("delete-id");
+deleteButtons.forEach(function (elm) {
+  elm.addEventListener("click", function () {
+    console.log(this.getAttribute("data-id"));
+    inputDeleteID.value = this.getAttribute("data-id");
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

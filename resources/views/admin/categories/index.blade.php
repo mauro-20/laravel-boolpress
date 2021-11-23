@@ -24,23 +24,21 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Title</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Slug</th>
-                        <th scope="col">Category</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($posts as $post)
+                      @foreach ($categories as $category)
                       <tr>
-                        <th scope="row">{{$post['id']}}</th>
-                        <td>{{$post['title']}}</td>
-                        <td>{{$post['slug']}}</td>
-                        <td>{{$post['category']['name'] ?? ""}}</td>
+                        <th scope="row">{{$category['id']}}</th>
+                        <td>{{$category['name']}}</td>
+                        <td>{{$category['slug']}}</td>
                         <td>
-                          <a href="{{route('admin.posts.show', $post['id'])}}"><button type="button" class="btn btn-primary">Show</button></a>
-                          <a href="{{route('admin.posts.edit', $post['id'])}}"><button type="button" class="btn btn-warning">Edit</button></a>
-                          <button type="button" class="btn btn-danger btn-delete" data-id="{{$post["id"]}}" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                          <a href="{{route('admin.categories.show', $category['id'])}}"><button type="button" class="btn btn-primary">Show</button></a>
+                          <a href="{{route('admin.categories.edit', $category['id'])}}"><button type="button" class="btn btn-warning">Edit</button></a>
+                          <button type="button" class="btn btn-danger btn-delete" data-id="{{$category["id"]}}" data-toggle="modal" data-target="#deleteModal">Delete</button>
                         </td>
                       </tr>  
                       @endforeach
@@ -59,18 +57,18 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <form action="{{route('admin.posts.destroy', 'id')}}" method="POST">
+      <form action="{{route('admin.categories.destroy', 'id')}}" method="POST">
         @csrf
         @method('DELETE')
         <input type="hidden" id="delete-id" name="id">
         <div class="modal-body">
-          Do You really want to delete the post?
+          Do You really want to delete the category?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <h1>{{$post['title']}}</h1>
                     <p>{{$post['content']}}</p>
+                    <p>Category: {{$post['category']['name']}}</p>
                     <p>Created: {{$post['created_at']}}</p>
                     <p>Updated: {{$post['updated_at']}}</p>
                 </div>
