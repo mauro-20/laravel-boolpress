@@ -47,6 +47,20 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                       @enderror
                     </div>
+
+                    <div class="form-group">
+                      <p>Tags</p>
+                      @foreach ($tags as $tag)
+                      <div class="form-check">
+                        @if ($errors->any())
+                          <input type="checkbox" {{in_array($tag['id'], old('tags', [])) ? 'checked' : null}} name="tags[]" value="{{$tag['id']}}" class="form-check-input" id="{{$tag['id']}}">
+                        @else
+                          <input type="checkbox" {{$post['tags']->contains($tag['id']) ? 'checked' : null}} name="tags[]" value="{{$tag['id']}}" class="form-check-input" id="{{$tag['id']}}">
+                        @endif
+                        <label class="form-check-label" for="{{$tag['id']}}">{{$tag['name']}}</label>   
+                      </div>
+                      @endforeach
+                    </div>
                   
                     <button type="submit" class="btn btn-primary">Save</button>
                   </form>

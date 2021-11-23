@@ -4,16 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
-use Illuminate\Support\Str;
+use App\Tag;
 
 class PostController extends Controller
 {
     protected $validationRules = [
         'title' => 'required|string|max:100',
         'content' => 'required|string',
-        'category_id' => 'nullable|exists:categories,id'
+        'category_id' => 'nullable|exists:categories,id',
+        'tags' => 'exists:tags,id'
     ];
 
     /**
@@ -35,7 +37,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -54,6 +57,8 @@ class PostController extends Controller
         $newPost->slug = Str::slug($newPost->title, '-');
 
         $newPost->save();
+
+        $newPost->tags()->attach($request['tags']);
 
         return redirect()->route("admin.posts.index")->with('success', "Post created successfully!");
     }
@@ -78,7 +83,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -97,6 +103,7 @@ class PostController extends Controller
         $post->slug = Str::slug($post->title, '-');
 
         $post->save();
+        $post->tags()->sync($request['tags']);
 
         return redirect()->route("admin.posts.index")->with('success', "Post edited successfully!");
     }

@@ -9,7 +9,15 @@
                 <div class="card-body">
                     <h1>{{$post['title']}}</h1>
                     <p>{{$post['content']}}</p>
-                    <p>Category: {{$post['category']['name']}}</p>
+                    @if ($post['category'])
+                        <p>Category: {{$post['category']['name']}}</p>
+                    @endif
+                    @forelse ($post['tags'] as $tag)
+                        <span class="badge badge-pill badge-primary">{{$tag['name']}}</span>
+                    @empty
+                        
+                    @endforelse
+
                     <p>Created: {{$post['created_at']}}</p>
                     <p>Updated: {{$post['updated_at']}}</p>
                 </div>
