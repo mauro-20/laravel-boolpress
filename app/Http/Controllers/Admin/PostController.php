@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\Category;
 use App\Tag;
+
 
 class PostController extends Controller
 {
@@ -25,7 +27,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = Auth::user()->posts;
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -55,7 +59,7 @@ class PostController extends Controller
         $newPost->fill($request->all());
         //TO DO creare un slug unique
         $newPost->slug = Str::slug($newPost->title, '-');
-
+        $newPost->user_id = Auth::id();
         $newPost->save();
 
         $newPost->tags()->attach($request['tags']);
@@ -71,6 +75,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        if ($post['user_id'] != Auth::id()) {
+            abort(403);
+        }
+
         return view('admin.posts.show', compact('post'));
     }
 
@@ -82,6 +90,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if ($post['user_id'] != Auth::id()) {
+            abort(403);
+        }
+
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.posts.edit', compact('post', 'categories', 'tags'));

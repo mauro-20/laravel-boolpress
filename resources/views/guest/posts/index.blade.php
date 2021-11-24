@@ -5,7 +5,11 @@
   @foreach ($posts as $post)
   <div class="blog-post">
     <h2 class="blog-post-title"><a href="{{route('post.show', $post['slug'])}}">{{$post['title']}}</a></h2>
-    <p class="blog-post-meta">{{$post->updated_at->diffForHumans()}} by <a href="#">Chris</a></p>
+    <p class="blog-post-meta">{{$post->updated_at->diffForHumans()}} 
+      @if ($post['user_id'])
+        by <a href="#">{{$post->user['name']}}</a>  
+      @endif
+    </p>
     @if ($post['tags'])
       <p>
         @foreach ($post['tags'] as $tag)
