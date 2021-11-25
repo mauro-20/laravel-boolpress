@@ -20,6 +20,7 @@ Route::get('/blog', 'PostController@index')->name('blog.index');
 Route::get('/blog/{slug}', 'PostController@show')->name('post.show');
 Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
 Route::get('/tag/{slug}', 'TagController@show')->name('tag.show');
+Route::get('/api-posts', 'PageController@apiPosts')->name('api.posts');
 
 // Authentication routes
 Auth::routes();
